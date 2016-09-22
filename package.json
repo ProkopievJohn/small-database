@@ -1,0 +1,24 @@
+{
+  "name": "small-database",
+  "version": "1.0.0",
+  "description": "small training database file with eventemitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProkopievJohn/small-database.git"
+  },
+  "author": "Ivan Prokopiev <ProkopievJohn@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProkopievJohn/small-database/issues"
+  },
+  "homepage": "https://github.com/ProkopievJohn/small-database#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^2.0.0"
+  }
+}
