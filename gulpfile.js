@@ -4,6 +4,8 @@ var gulp = require('gulp'),
 	filesJS = [
 			'js/find.js',
 			'js/findindex.js',
+			'js/Test.js',
+			'js/Tests.js',
 			'js/App.js',
 			'js/EventEmitter.js',
 			'js/Database.js'

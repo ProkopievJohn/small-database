@@ -7,7 +7,7 @@ function Database() {
 Database.prototype.add = function (item) {
 	var id = this.getItemId(item);
 	if (this.dataMap[id]) {
-		// throw new Error('Item with id: ' + id + ' - already exists');
+		throw new Error('Item with id: ' + id + ' - already exists');
 	}
 	this.items.push(item);
 	this.dataMap[id] = item;
@@ -46,11 +46,16 @@ Database.prototype.findIndexInArray = function (items, item) {
 	return items.findIndex(helper(item));
 };
 
+Database.prototype.findEl = function (id) {
+	if (typeof id === 'string' || typeof id === 'number') {
+		return this.dataMap[id];
+	}
+};
+
 Database.prototype.on = function (event, listener) {
 	this.eventEmitter.on(event, listener);
 };
 
 Database.prototype.emit = function (event, parameters) {
-	
 	this.eventEmitter.emit(event, parameters)
 };

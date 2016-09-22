@@ -17,7 +17,6 @@ EventEmitter.prototype.emit = function (event) {
 	for(var i = 0; i < length; i++) {
 		listeners[i].apply(this, args)
 	}
-	console.log(this.events);
 };
 
 EventEmitter.prototype.get = function () {
