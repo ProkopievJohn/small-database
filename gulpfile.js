@@ -1,17 +1,18 @@
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	wiredep = require('wiredep').stream,
 	filesJS = [
-			'js/find.js',
-			'js/findindex.js',
-			'js/Test.js',
-			'js/Tests.js',
-			'js/App.js',
+			'js/insertAdjacentFF.js',
 			'js/EventEmitter.js',
-			'js/Database.js'
+			'js/Helper.js',
+			'js/App.js',
+			'js/Database.js',
+			'js/Countries.js',
+			'js/Cities.js'
 		];
 
-// Javascript
+// JavaScript
 gulp.task('js', function () {
 	return gulp.src(filesJS)
 		.pipe(concat('script.min.js'))
@@ -19,8 +20,26 @@ gulp.task('js', function () {
 		.pipe(gulp.dest('./'));
 });
 
-gulp.task('watch', function () {
-	gulp.watch(filesJS, ['js']);
+// Bower
+gulp.task('bower', function () {
+	gulp.src('./index.html')
+		.pipe(wiredep({
+			directory: "./bower_components",
+			overrides: {
+				bootstrap: {
+					main: [
+						"dist/css/bootstrap.min.css",
+						"dist/js/bootstrap.min.js"
+					]
+				}
+			}
+		}))
+		.pipe(gulp.dest('./'));
 });
 
-gulp.task('default', ['watch','js']);
+gulp.task('watch', function () {
+	gulp.watch(filesJS, ['js']);
+	gulp.watch('bower.json', ['bower']);
+});
+
+gulp.task('default', ['watch', 'js']);

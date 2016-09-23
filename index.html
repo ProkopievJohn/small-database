@@ -3,14 +3,34 @@
 <head>
 	<meta charset="UTF-8">
 	<title>small database</title>
+	<!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+	<!-- endbower -->
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="all">
-		<button class="add">add</button>
-		<button class="del">del</button>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-6" id="countries">
+				<div class="form-group col-sm-12">
+					<label for="country-input">Country</label>
+					<input type="text" class="form-control" id="country-input" placeholder="select country">
+				</div>
+				<ul class="col-sm-12 list" id="countries-list"></ul>
+			</div>
+			<div class="col-sm-6" id="cities">
+				<div class="form-group col-sm-12">
+					<label for="cities-input">City</label>
+					<input type="text" class="form-control" id="cities-input" placeholder="select city">
+				</div>
+				<ul class="col-sm-12 list" id="cities-list"></ul>
+			</div>
+		</div>
 	</div>
-	<div class="get">
-	</div>
+	<!-- bower:js -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- endbower -->
 	<script src="script.min.js"></script>
 </body>
 </html>

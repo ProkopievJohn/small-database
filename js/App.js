@@ -1,29 +1,41 @@
 function App() {
-	this.data = {
-		id: 'id2',
-		name: 'name2',
-	};
 	this.database = new Database();
-	this.test = new Test(document.querySelector('.all'));
-	this.tests = new Tests(document.querySelector('.get'));
+	this.url = 'https://raw.githubusercontent.com/David-Haim/CountriesToCitiesJSON/master/countriesToCities.json';
+	this.database = new Database();
+	this.countries = new Countries(document.querySelector('#countries'));
+	this.cities = new Cities(document.querySelector('#cities'));
 	this.init();
 }
 
+App.prototype = Object.create(Helper.prototype);
+
 App.prototype.init = function () {
-	this.database.on('data', this.do.bind(this));
-	this.test.on('test-add', this.database.add.bind(this.database));
-	this.test.on('test-del', this.database.delete.bind(this.database));
-	this.tests.on('delel', this.database.delete.bind(this.database));
-	this.database.add(this.data);
-	this.database.add({name: 'name1', id: 'id1'});
+	this.database.on('data-add', this.dataAddDo.bind(this));
+	this.XMLLoad('GET', this.url, this.addDataToBase.bind(this));
 };
-/***************************************/
-App.prototype.do = function (data) {
-	if (typeof data !== 'object') return;
-	data.deladd ? this.tests.addEl(data.id, data.name) : this.tests.delEl(data.id);
+
+App.prototype.addDataToBase = function (data) {
+	var data = JSON.parse(data);
+	for (var i in data) {
+		if (i !== '') {
+			if (i === 'Norway' || i === 'Denmark') {
+			this.database.dataAdd({id: i, cities: data[i]})
+			}
+		}
+	}
+};
+
+App.prototype.dataAddDo = function (data) {
+	this.countries.addCountry(data.id);
+	var arrCities = this.database.dataFindProps('cities');
+	this.cities.clearAllList();
+	var merged = [].concat.apply([], arrCities);
+	for (var i = 0; i < merged.length; i++) {
+		this.cities.addCity(merged[i]);
+	}
 };
 
 window.addEventListener('DOMContentLoaded', function(){
 	new App();
-	database = new Database();
 });
+

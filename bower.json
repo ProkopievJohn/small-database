@@ -1,0 +1,20 @@
+{
+  "name": "small-database",
+  "description": "small training database file with eventemitter",
+  "main": "index.js",
+  "authors": [
+    "Ivan Prokopiev <ProkopievJohn@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ProkopievJohn/small-database",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

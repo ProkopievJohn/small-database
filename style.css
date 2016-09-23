@@ -1,0 +1,18 @@
+#countries, #cities {
+	background-color: #ccc;
+}
+
+.form-group {
+	text-align: center;
+}
+
+#countries-list, #cities-list {
+	list-style: none;
+	padding: 20px;
+}
+
+.list li {
+	background-color: #eee;
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+}
