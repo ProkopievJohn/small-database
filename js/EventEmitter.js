@@ -7,7 +7,7 @@ EventEmitter.prototype.on = function(event, listener) {
 		this.events[event] = [];
 	}
 	this.events[event].push(listener);
-}
+};
 
 EventEmitter.prototype.emit = function (event) {
 	if (typeof this.events[event] !== 'object') return;
@@ -17,8 +17,4 @@ EventEmitter.prototype.emit = function (event) {
 	for(var i = 0; i < length; i++) {
 		listeners[i].apply(this, args)
 	}
-};
-
-EventEmitter.prototype.get = function () {
-	return this.events;
 };

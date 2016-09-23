@@ -1,32 +1,29 @@
 function App() {
 	this.data = {
-		id: 'myid',
-		name: 'name',
-		fun: function(){
-			console.log('i fun');
-		}
+		id: 'id2',
+		name: 'name2',
 	};
 	this.database = new Database();
-	this.events = new EventEmitter();
-	// this.t = new Test(document.querySelector('.all'));
+	this.test = new Test(document.querySelector('.all'));
+	this.tests = new Tests(document.querySelector('.get'));
 	this.init();
 }
 
 App.prototype.init = function () {
-	new Test(document.querySelector('.all'));
+	this.database.on('data', this.do.bind(this));
+	this.test.on('test-add', this.database.add.bind(this.database));
+	this.test.on('test-del', this.database.delete.bind(this.database));
+	this.tests.on('delel', this.database.delete.bind(this.database));
 	this.database.add(this.data);
-	this.database.add({name: 'name', id: 'nameid'});
-	this.on('data-myid', this.do.bind(this));
+	this.database.add({name: 'name1', id: 'id1'});
 };
-
-App.prototype.do = function () {
-	console.log(arguments);
-};
-
-App.prototype.on = function (event, listener) {
-	this.events.on(event, listener);
+/***************************************/
+App.prototype.do = function (data) {
+	if (typeof data !== 'object') return;
+	data.deladd ? this.tests.addEl(data.id, data.name) : this.tests.delEl(data.id);
 };
 
 window.addEventListener('DOMContentLoaded', function(){
 	new App();
+	database = new Database();
 });

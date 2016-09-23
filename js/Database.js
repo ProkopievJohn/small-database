@@ -1,7 +1,7 @@
 function Database() {
 	this.items = [];
 	this.dataMap = {};
-	this.eventEmitter = new EventEmitter();
+	this.events = new EventEmitter();
 }
 
 Database.prototype.add = function (item) {
@@ -9,11 +9,26 @@ Database.prototype.add = function (item) {
 	if (this.dataMap[id]) {
 		throw new Error('Item with id: ' + id + ' - already exists');
 	}
+	if (!item['name']) item['name'] = 'no name';
+/*************************************************/
+	item['deladd'] = true;
 	this.items.push(item);
 	this.dataMap[id] = item;
+	this.emit('data', item);
+};
 
-	this.emit('data-' + id, item);
-	// this.emit('data', item);
+Database.prototype.delete = function (item) {
+	var id = this.getItemId(item),
+		idArr = this.findIndexInArray(this.items, item);
+	if (this.dataMap[id]) {
+/**************************************************/
+		this.dataMap[id]['deladd'] = false;
+		this.emit('data', this.dataMap[id]);
+		delete this.dataMap[id];
+		this.items.splice(idArr, 1);
+	} else {
+		throw new Error('Item you trying to delete does not belong to this store');
+	}
 };
 
 Database.prototype.getItemId = function (item) {
@@ -26,18 +41,6 @@ Database.prototype.getItemId = function (item) {
 	}
 };
 
-Database.prototype.delete = function (item) {
-	var id = this.getItemId(item),
-		idArr = this.findIndexInArray(this.items, item);
-	if (this.dataMap[id]) {
-		delete this.dataMap[id];
-		this.items.splice(idArr, 1);
-		this.emit('data-' + id, item);
-	} else {
-		throw new Error('Item you trying to delete does not belong to this store');
-	}
-};
-
 Database.prototype.findIndexInArray = function (items, item) {
 	function helper(item) {
 		return function (el, i, arr) {
@@ -47,16 +50,10 @@ Database.prototype.findIndexInArray = function (items, item) {
 	return items.findIndex(helper(item));
 };
 
-Database.prototype.findEl = function (id) {
-	if (typeof id === 'string' || typeof id === 'number') {
-		return this.dataMap[id];
-	}
-};
-
 Database.prototype.on = function (event, listener) {
-	this.eventEmitter.on(event, listener);
+	this.events.on(event, listener);
 };
 
 Database.prototype.emit = function (event, parameters) {
-	this.eventEmitter.emit(event, parameters)
+	this.events.emit(event, parameters);
 };
