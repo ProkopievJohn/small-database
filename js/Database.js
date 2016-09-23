@@ -13,6 +13,7 @@ Database.prototype.add = function (item) {
 	this.dataMap[id] = item;
 
 	this.emit('data-' + id, item);
+	// this.emit('data', item);
 };
 
 Database.prototype.getItemId = function (item) {

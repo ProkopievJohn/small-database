@@ -17,14 +17,10 @@ App.prototype.init = function () {
 	this.database.add(this.data);
 	this.database.add({name: 'name', id: 'nameid'});
 	this.on('data-myid', this.do.bind(this));
-	this.on('test', this.dodo.bind(this));
 };
 
 App.prototype.do = function () {
 	console.log(arguments);
-};
-App.prototype.dodo = function () {
-	document.querySelector('get').innerHTML = 'ola';
 };
 
 App.prototype.on = function (event, listener) {
