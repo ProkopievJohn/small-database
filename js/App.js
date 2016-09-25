@@ -12,6 +12,17 @@ App.prototype = Object.create(Helper.prototype);
 App.prototype.init = function () {
 	this.database.on('data-add', this.dataAddDo.bind(this));
 	this.XMLLoad('GET', this.url, this.addDataToBase.bind(this));
+	
+	// var data = {
+	// 	id: 'usa',
+	// 	citiessss: [
+	// 		{1:'newyourk'},
+	// 		{2:'sietle'},
+	// 		{3:'losqangeles',cities: 'coties'}
+	// 	]
+	// }
+
+	// this.database.dataAdd(data);
 };
 
 App.prototype.addDataToBase = function (data) {

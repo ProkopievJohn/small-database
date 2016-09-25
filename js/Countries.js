@@ -18,10 +18,31 @@ Countries.prototype = {
 
 	delegationKeyup: function (e) {
 		var target = e.target;
+
+		console.log(e.keyCode);
+		this.findInList(this.elForAdd.value);
 	},
 
 	addCountry: function (text) {
 		if (typeof text !== 'string') return;
 		this.elToAdd.insertAdjacentHTML('beforeend', '<li>' + text + '</li>');
+	},
+
+	clearAllList: function () {
+		var els = this.elToAdd.children;
+		for (var i = 0; i < els.length; i++) {
+			els[i].parentNode.removeChild(els[i]);
+		}
+	},
+
+	findInList: function (text) {
+		var els = this.elToAdd.children;
+		for (var i = 0; i < els.length; i++) {
+			els[i].classList.add('hide');
+			if (els[i].innerHTML.toLowerCase().indexOf(text) !== -1) {
+				els[i].classList.remove('hide');
+				els[i].classList.add('show-list');
+			}
+		}
 	}
 }

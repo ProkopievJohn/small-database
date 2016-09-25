@@ -3,7 +3,6 @@ function Cities(el) {
 	this.el = el;
 	this.elToAdd = this.el.querySelector('#cities-list');
 	this.elForAdd = this.el.querySelector('#cities-input');
-	// this.helperForFind = [];
 	this.init();
 }
 
@@ -20,13 +19,11 @@ Cities.prototype = {
 	delegationKeyup: function (e) {
 		var target = e.target;
 
-		// this.elForAdd.value
 		this.findInList(this.elForAdd.value);
 	},
 
 	addCity: function (text) {
 		if (typeof text !== 'string') return;
-		// console.log(text);
 		this.elToAdd.insertAdjacentHTML('beforeend', '<li>' + text + '</li>');
 	},
 
@@ -39,9 +36,12 @@ Cities.prototype = {
 
 	findInList: function (text) {
 		var els = this.elToAdd.children;
-		for (var i = 0; i < Things.length; i++) {
-			Things[i]
+		for (var i = 0; i < els.length; i++) {
+			els[i].classList.add('hide');
+			if (els[i].innerHTML.toLowerCase().indexOf(text) !== -1) {
+				els[i].classList.remove('hide');
+				els[i].classList.add('show-list');
+			}
 		}
-		console.log(text);
 	}
 }

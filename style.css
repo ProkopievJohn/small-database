@@ -16,3 +16,11 @@
 	border-bottom: 1px solid #ddd;
 	padding: 10px;
 }
+
+.show-list {
+	display: list-item;
+}
+
+.hide {
+	display: none;
+}

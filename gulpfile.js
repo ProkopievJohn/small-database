@@ -42,4 +42,4 @@ gulp.task('watch', function () {
 	gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task('default', ['watch', 'js']);
+gulp.task('default', ['watch', 'js', 'bower']);
