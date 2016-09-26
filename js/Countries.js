@@ -17,8 +17,7 @@ Countries.prototype = {
 		var target = e.target;
 
 		if (target.tagName === 'LI') {
-			this.unSelected();
-			target.classList.add('selected', 'show-list');
+			this.enterCountry(target);
 			this.emit('country-enter', target);
 		}
 	},
@@ -28,13 +27,14 @@ Countries.prototype = {
 
 		this.findInList(this.elForAdd.value);
 		if (e.keyCode === 13) {
-			this.enterCountry();
+			var el = this.elToAdd.querySelector('.show-list');
+			this.enterCountry(el);
 		}
 	},
 
 	addCountry: function (text) {
 		if (typeof text !== 'string' || text === '') return;
-		this.elToAdd.insertAdjacentHTML('beforeend', '<li show>' + text + '</li>');
+		this.elToAdd.insertAdjacentHTML('beforeend', '<li>' + text + '</li>');
 	},
 
 	clearAllList: function () {
@@ -59,7 +59,7 @@ Countries.prototype = {
 	},
 
 	findInList: function (text) {
-		var els = this.getByAttribute('show');
+		var els = this.elToAdd.children;
 		this.hideAll();
 		for (var i = 0; i < els.length; i++) {
 			if (els[i].innerHTML.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
@@ -79,9 +79,6 @@ Countries.prototype = {
 					if (el === arr[i].innerHTML) {
 						arr[i].classList.remove('hide');
 						arr[i].classList.add('show-list');
-						arr[i].setAttribute('show', '');
-					} else {
-						arr[i].removeAttribute('show');
 					}
 				}
 			}
@@ -90,21 +87,19 @@ Countries.prototype = {
 		arr.forEach(helper(els));
 	},
 
-	getByAttribute: function (attrName) {
-		var response = [];
-		var els = this.elToAdd.children;
-		for (var i = 0; i < els.length; i++) {
-			if (els[i].hasAttribute(attrName)) {
-				response.push(els[i]);
-			}
-		}
-		return response;
-	},
-
-	enterCountry: function () {
-		var el = this.elToAdd.querySelector('.show-list');
+	enterCountry: function (el) {
+		this.unSelected();
 		el.classList.add('selected');
 		this.emit('country-enter', el);
+	},
+
+	getByHtml: function (text) {
+		var els = this.elToAdd.children;
+		for (var i = 0; i < els.length; i++) {
+			if (els[i].innerHTML.toLowerCase() === text.toLowerCase()) {
+				return els[i];
+			}
+		}
 	},
 
 	emit: function (event, parameters) {

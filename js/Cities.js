@@ -18,9 +18,8 @@ Cities.prototype = {
 		var target = e.target;
 
 		if (target.tagName === 'LI') {
-			this.unSelected();
-			target.classList.add('selected', 'show-list');
-			this.emit('country-enter', target);
+			this.emit('city-enter', target);
+			this.enterCity(target);
 		}
 	},
 
@@ -29,7 +28,9 @@ Cities.prototype = {
 
 		this.findInList(this.elForAdd.value);
 		if (e.keyCode === 13) {
-			this.enterCity();
+			var el = this.elToAdd.querySelector('.show-list');
+			this.emit('city-enter', el);
+			this.enterCity(el);
 		}
 	},
 
@@ -66,7 +67,6 @@ Cities.prototype = {
 	},
 
 	chooseInList: function (arr) {
-		this.elForAdd.value = '';
 		this.hideAll();
 		function helper(arr) {
 			return function (el, i, array) {
@@ -97,11 +97,9 @@ Cities.prototype = {
 		return response;
 	},
 
-	enterCity: function () {
-		var el = this.elToAdd.querySelector('.show-list');
+	enterCity: function (el) {
 		this.unSelected();
 		el.classList.add('selected');
-		this.emit('city-enter', el);
 	},
 
 	unSelected: function () {
@@ -112,6 +110,7 @@ Cities.prototype = {
 	},
 
 	startChooseCities: function (countryName) {
+		this.elForAdd.value = '';
 		this.chooseInList([countryName]);
 		this.elForAdd.removeAttribute('disabled')
 		this.elForAdd.focus();

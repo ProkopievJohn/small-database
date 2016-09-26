@@ -15,6 +15,7 @@
 	background-color: #eee;
 	border-bottom: 1px solid #ddd;
 	padding: 10px;
+	cursor: pointer;
 }
 
 .list li i {
