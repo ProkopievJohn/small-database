@@ -17,10 +17,19 @@
 	padding: 10px;
 }
 
+.list li i {
+	float: right;
+	font-size: 0.8rem;
+}
+
 .show-list {
 	display: list-item;
 }
 
 .hide {
 	display: none;
+}
+
+.selected {
+	background-color: #00FFFF !important;
 }

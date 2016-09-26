@@ -13,12 +13,12 @@ Helper.prototype.XMLLoad = function (method, url, callback) {
 	xml.send();
 };
 
-Helper.prototype.helperSearchInArray = function (obj, key, callback, self) {
-	for (var i in obj) {
-		if (i == key) {
-			callback(obj[i], self);
-		} else if (typeof obj[i] == "object" && Object.keys(obj[i]).length > 0) {
-			self.helperSearchInArray(obj[i], key, callback, self);
+Helper.prototype.getByAttribute = function (els, attrName) {
+	var response = [];
+	for (var i = 0; i < els.length; i++) {
+		if (els[i].hasAttribute(attrName)) {
+			response.push(els[i])
 		}
 	}
+	return response;
 };

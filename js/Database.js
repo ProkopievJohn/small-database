@@ -51,7 +51,7 @@ function Database() {
 	this.events = new EventEmitter();
 }
 
-Database.prototype = Object.create(App.prototype)
+Database.prototype = Object.create(App.prototype);
 
 Database.prototype.dataAdd = function (item) {
 	var id = this.dataGetItemId(item);
@@ -108,10 +108,19 @@ Database.prototype.dataFindProps = function (prop) {
 		result.push(value);
 		return result;
 	}
-	this.helperSearchInArray(this.items, prop, helper, this);
+	this.helperSearchInArray(this.items, prop, helper);
 	return result;
 };
 
+Database.prototype.helperSearchInArray = function (obj, key, callback) {
+	for (var i in obj) {
+		if (i == key) {
+			callback(obj[i]);
+		} else if (typeof obj[i] == "object" && Object.keys(obj[i]).length > 0) {
+			this.helperSearchInArray(obj[i], key, callback);
+		}
+	}
+};
 
 Database.prototype.emit = function (event, parameters) {
 	this.events.emit(event, parameters);
